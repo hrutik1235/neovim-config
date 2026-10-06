@@ -96,6 +96,20 @@ return {
 			})
 			vim.lsp.enable("gopls")
 
+			-- Rust (rust-analyzer comes from rustup: `rustup component add rust-analyzer`)
+			vim.lsp.config("rust_analyzer", {
+				capabilities = capabilities,
+				on_attach = on_attach,
+				settings = {
+					["rust-analyzer"] = {
+						cargo = { allFeatures = true },
+						check = { command = "clippy" },
+						procMacro = { enable = true },
+					},
+				},
+			})
+			vim.lsp.enable("rust_analyzer")
+
 			-- TypeScript / React
 			vim.lsp.config("ts_ls", {
 				capabilities = capabilities,
@@ -181,6 +195,7 @@ return {
 			require("conform").setup({
 				formatters_by_ft = {
 					go = { "gofumpt", "goimports" },
+					rust = { "rustfmt" },
 					javascript = { "prettier" },
 					javascriptreact = { "prettier" },
 					typescript = { "prettier" },

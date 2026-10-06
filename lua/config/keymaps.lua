@@ -117,6 +117,11 @@ map("n", "<leader>q", "<cmd>q<CR>", { desc = "Quit" })
 map("n", "<leader>de", vim.diagnostic.open_float, { desc = "Open diagnostic float" })
 map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Prev diagnostic" })
 map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = "Next diagnostic" })
+-- errors only (skip warnings/hints)
+map("n", "[e", function() vim.diagnostic.jump({ count = -1, float = true, severity = vim.diagnostic.severity.ERROR }) end, { desc = "Prev error" })
+map("n", "]e", function() vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR }) end, { desc = "Next error" })
+-- all problems in the current file (VSCode: Problems panel, current file)
+map("n", "<leader>fx", function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end, { desc = "Diagnostics (current file)" })
 
 -- ─── Go shortcuts ─────────────────────────────────────────────────────────────
 map("n", "<leader>gr", "<cmd>!go run .<CR>", { desc = "Go: run" })

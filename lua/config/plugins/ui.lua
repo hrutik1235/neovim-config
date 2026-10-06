@@ -17,34 +17,57 @@ return {
 	},
 	-- Colorscheme
 	{
-		"rebelot/kanagawa.nvim",
+		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
 		config = function()
-			require("kanagawa").setup({
-				compile = false, -- enable compiling the colorscheme
-				undercurl = true, -- enable undercurls
-				commentStyle = { italic = true },
-				functionStyle = {},
-				keywordStyle = { italic = true },
-				statementStyle = { bold = true },
-				typeStyle = {},
-				transparent = true, -- do not set background color
-				dimInactive = false, -- dim inactive window `:h hl-NormalNC`
-				terminalColors = true, -- define vim.g.terminal_color_{0,17}
-				colors = { -- add/modify theme and palette colors
-					palette = {},
-					theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+			require("gruvbox").setup({
+				undercurl = true,
+				bold = true,
+				italic = {
+					strings = false,
+					comments = true,
+					operators = false,
+					folds = true,
 				},
-				overrides = function(colors) -- add/modify highlights
-					return {}
-				end,
-				theme = "wave", -- Load "wave" theme
-				background = { -- map the value of 'background' option to a theme
-					dark = "wave", -- try "dragon" !
-					light = "lotus",
+				contrast = "", -- "hard", "soft" or "" (medium)
+				transparent_mode = true, -- let Ghostty's background/blur show through
+				-- extra syntax colors (gruvbox dark palette)
+				overrides = {
+					["@keyword.import"] = { fg = "#fb4934", italic = true },
+					["@keyword.return"] = { fg = "#fb4934", italic = true },
+					["@keyword.function"] = { fg = "#fe8019" },
+					["@function"] = { fg = "#b8bb26", bold = true },
+					["@function.call"] = { fg = "#b8bb26" },
+					["@function.method.call"] = { fg = "#8ec07c" },
+					["@variable"] = { fg = "#ebdbb2" },
+					["@variable.parameter"] = { fg = "#83a598", italic = true },
+					["@variable.member"] = { fg = "#8ec07c" },
+					["@property"] = { fg = "#8ec07c" },
+					["@type"] = { fg = "#fabd2f" },
+					["@type.builtin"] = { fg = "#fabd2f", italic = true },
+					["@constant"] = { fg = "#d3869b" },
+					["@constant.builtin"] = { fg = "#d3869b", bold = true },
+					["@number"] = { fg = "#d3869b" },
+					["@boolean"] = { fg = "#d3869b", bold = true },
+					["@string"] = { fg = "#b8bb26" },
+					["@punctuation.bracket"] = { fg = "#a89984" },
+					["@punctuation.delimiter"] = { fg = "#928374" },
+					["@operator"] = { fg = "#fe8019" },
+					-- JSX / HTML
+					["@tag"] = { fg = "#fb4934" },
+					["@tag.builtin"] = { fg = "#fb4934" },
+					["@tag.tsx"] = { fg = "#fabd2f", bold = true }, -- React components
+					["@tag.attribute"] = { fg = "#83a598", italic = true },
+					["@tag.delimiter"] = { fg = "#928374" },
+					-- LSP semantic tokens (keep in line with treesitter)
+					["@lsp.type.parameter"] = { link = "@variable.parameter" },
+					["@lsp.type.property"] = { link = "@property" },
+					["@lsp.type.interface"] = { fg = "#fabd2f", italic = true },
+					["@lsp.type.enumMember"] = { link = "@constant" },
 				},
 			})
-			vim.cmd.colorscheme("kanagawa-wave")
+			vim.o.background = "dark"
+			vim.cmd.colorscheme("gruvbox")
 		end,
 	},
 
@@ -55,7 +78,7 @@ return {
 		config = function()
 			require("lualine").setup({
 				options = {
-					theme = "kanagawa",
+					theme = "gruvbox",
 					component_separators = "|",
 					section_separators = "",
 				},
@@ -103,7 +126,7 @@ return {
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
 		config = function()
-			vim.api.nvim_set_hl(0, "IblScope", { fg = "#3b4048" })
+			vim.api.nvim_set_hl(0, "IblScope", { fg = "#504945" })
 
 			require("ibl").setup({
 				indent = { char = " " },
